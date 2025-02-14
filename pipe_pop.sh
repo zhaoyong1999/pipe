@@ -10,7 +10,7 @@ fi
 SCRIPT_PATH="$HOME/pipe pop.sh"
 
 
-SOLANA_ADDRESS=$1
+
 # 部署 pipe pop 函数
 function deploy_pipe_pop() {
     # 检测 DevNet 1 节点服务是否正在运行
@@ -81,7 +81,7 @@ function deploy_pipe_pop() {
     # read -p "请输入分配磁盘大小（默认：100，单位：GB）：" DISK_SIZE
     DISK_SIZE=${DISK_SIZE:-200}  # 如果用户没有输入，则使用默认值 100
     DISK_SIZE="${DISK_SIZE}"  # 确保单位为 G
-
+    SOLANA_ADDRESS=$1
     # read -p "请输入 Solana 地址： " SOLANA_ADDRESS
 
     # 创建 systemd 服务文件
@@ -135,7 +135,6 @@ function check_status() {
     echo "正在查看 ./pop 的状态..."
     cd /root/pipenetwork
     ./pop --status
-    read -p "按任意键返回主菜单..."
 }
 
 # 备份 node_info.json 函数
@@ -144,7 +143,6 @@ function backup_node_info() {
     cd /root/pipenetwork
     cp ~/node_info.json ~/node_info.backup2-4-25  # 备份文件到新的目标文件
     echo "备份完成，node_info.json 已备份到 ~/node_info.backup2-4-25 文件。"
-    read -p "按任意键返回主菜单..."
 }
 
 # 生成pop邀请
@@ -152,7 +150,6 @@ function generate_referral() {
     echo "正在生成 pop邀请码..."
     cd /root/pipenetwork
     ./pop --gen-referral-route
-    read -p "按任意键返回主菜单..."
 }
 
 # 升级版本 (2.0.5)
@@ -182,7 +179,6 @@ function upgrade_version() {
     # 实时查看服务日志
     journalctl -u pipe-pop -f
 
-    read -p "按任意键返回主菜单..."
 }
 
 # # 主菜单函数
@@ -232,5 +228,3 @@ function upgrade_version() {
 # }
 
 # 启动主菜单
-deploy_pipe_pop
-check_status
